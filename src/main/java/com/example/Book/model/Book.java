@@ -5,14 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Books {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
@@ -39,7 +37,7 @@ public class Books {
         this.creationDate = creationDate;
     }
 
-    public Books(String authorName, Double price) {
+    public Book(String authorName, Double price) {
         this.authorName = authorName;
         this.price = price;
     }
