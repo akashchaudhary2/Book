@@ -12,7 +12,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private Long id;
-    @Column(length = 35)@JsonProperty("author_name")
+    @Column(length = 35)
+    @JsonProperty("author_name")
     private String authorName;
     @Column(length = 35)
     @JsonProperty("book_tittle")
@@ -28,6 +29,7 @@ public class Book {
         this.bookTittle = bookTittle;
         this.price = price;
     }
+
 
     public Long getId() {
         return id;

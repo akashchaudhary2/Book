@@ -6,8 +6,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,10 +33,19 @@ public class Class1 implements BookService {
     }
 
     @Override
-    public Optional<Book> cheapestBook() {
+    public List<Book> priceLowestToHighest() {
         return bookRepo.findAll()
                 .stream()
-                .min((x,y)->x.getPrice().compareTo(y.getPrice()));
+                .sorted((x, y) -> x.getPrice().compareTo(y.getPrice()))
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<Book> priceHighestToLowest() {
+        return bookRepo.findAll()
+                .stream()
+                .sorted((x, y) -> x.getPrice().compareTo(y.getPrice()))
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList());
     }
 }

@@ -3,7 +3,6 @@ package com.akash.Book.service;
 import com.akash.Book.model.Book;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookService {
     List<Book> getBooks();
@@ -12,5 +11,8 @@ public interface BookService {
 
     void delete(Long id);
 
-    Optional<Book> cheapestBook();
+
+    List<Book> priceLowestToHighest();
+
+    List<Book> priceHighestToLowest();
 }
