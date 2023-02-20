@@ -1,15 +1,48 @@
 package com.akash.Book.service;
 
 import com.akash.Book.model.Book;
+import com.akash.Book.repository.BookRepo;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-public interface BookService {
-    List<Book> getBooks();
+@Service
+@Transactional
+public class BookService implements BookS {
+    @Autowired
+    private BookRepo bookRepo;
 
-    void create(Book book);
+    @Override
+    public List<Book> getBooks() {
+        return bookRepo.findAll();
+    }
 
-    void delete(Long id);
+    @Override
+    public void create(Book book) {
+        bookRepo.save(book);
+    }
 
-    List<Book> priceLowestToHighest();
+    @Override
+    public void delete(Long id) {
+        bookRepo.deleteById(id);
+    }
+
+    @Override
+    public List<Book> priceLowestToHighest() {
+        return bookRepo.findAll()
+                .stream()
+                .sorted((x, y) -> x.getPrice().compareTo(y.getPrice()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Book> bookWithinPriceRange(int x) {
+        return bookRepo.findAll()
+                .stream()
+                .filter(b -> b.getPrice() <= x)
+                .collect(Collectors.toList());
+    }
 }

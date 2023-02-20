@@ -1,7 +1,7 @@
 package com.akash.Book.controller;
 
 import com.akash.Book.model.Book;
-import com.akash.Book.service.BookService;
+import com.akash.Book.service.BookS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class BookController {
     @Autowired
-    private BookService bookService;
+    private BookS bookS;
 
     @GetMapping("/akash")
     public String hello() {
@@ -19,23 +19,23 @@ public class BookController {
 
     @GetMapping("/")
     public List<Book> getBook() {
-        return bookService.getBooks();
+        return bookS.getBooks();
     }
 
     @GetMapping("/lowest-highest")
     public List<Book> getBooksPriceLowestToHighest() {
-        return bookService.priceLowestToHighest();
+        return bookS.priceLowestToHighest();
     }
 
 
     @PostMapping("/")
     public void create(@RequestBody Book book) {
-        bookService.create(book);
+        bookS.create(book);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
         Long a = Long.valueOf(id);
-        bookService.delete(a);
+        bookS.delete(a);
     }
 }
