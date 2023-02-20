@@ -27,10 +27,6 @@ public class BookController {
         return bookService.priceLowestToHighest();
     }
 
-    @GetMapping("/highest-lowest")
-    public List<Book> getBookPriceHighestToLowest() {
-        return bookService.priceHighestToLowest();
-    }
 
     @PostMapping("/")
     public void create(@RequestBody Book book) {

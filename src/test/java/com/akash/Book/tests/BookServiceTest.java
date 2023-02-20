@@ -1,4 +1,4 @@
-package com.akash.Book;
+package com.akash.Book.tests;
 
 public interface BookServiceTest {
     void testBooksLowestToHighest();

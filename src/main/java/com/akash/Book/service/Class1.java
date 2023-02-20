@@ -40,12 +40,5 @@ public class Class1 implements BookService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Book> priceHighestToLowest() {
-        return bookRepo.findAll()
-                .stream()
-                .sorted((x, y) -> x.getPrice().compareTo(y.getPrice()))
-                .sorted(Collections.reverseOrder())
-                .collect(Collectors.toList());
-    }
+
 }

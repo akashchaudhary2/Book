@@ -11,8 +11,5 @@ public interface BookService {
 
     void delete(Long id);
 
-
     List<Book> priceLowestToHighest();
-
-    List<Book> priceHighestToLowest();
 }
