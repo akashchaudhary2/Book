@@ -1,4 +1,4 @@
-package com.akash.Book.tests.testService;
+package com.akash.Book.testService;
 
 import com.akash.Book.model.Book;
 import com.akash.Book.repository.BookRepo;
