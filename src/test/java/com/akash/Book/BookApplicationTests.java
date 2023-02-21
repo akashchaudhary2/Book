@@ -38,6 +38,8 @@ class BookApplicationTests {
         assertFalse(size.equals(1));
         assertTrue(size.equals(2));
         assertFalse(size.equals(3));
+        assertEquals(service.bookWithinPriceRange(100).get(0),
+                books.get(0));
 
     }
 
