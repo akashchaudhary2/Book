@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -27,18 +28,16 @@ public class BookService implements BookS {
     }
 
     @Override
+    public Optional<Book> getBook(Long id) {
+        return bookRepo.findById(id);
+    }
+
+    @Override
     public void update(Book book, PatchBookRequest request) {
         validationForPatch(request);
         updateBook(book, request);
         bookRepo.save(book);
     }
-
-
-    @Override
-    public Book getBook(Long id) {
-        return bookRepo.findByBookId(id);
-    }
-
 
     @Override
     public void delete(Long id) {
@@ -75,13 +74,13 @@ public class BookService implements BookS {
     private void validationForPatch(PatchBookRequest request) {
         if (request.getAuthorName() != null && request.getAuthorName().isBlank())
             new IllegalArgumentException("name can't be blank");
-        if (request.getAuthorEmail() !=null && request.getAuthorEmail().isBlank())
+        if (request.getAuthorEmail() != null && request.getAuthorEmail().isBlank())
             new IllegalArgumentException("email can't be blank");
-        if (request.getBookTittle() !=null && request.getBookTittle().isBlank())
+        if (request.getBookTittle() != null && request.getBookTittle().isBlank())
             new IllegalArgumentException("book tittle can't be blank");
-        if (request.getPrice() !=null && String.valueOf(request.getPrice()).isBlank())
+        if (request.getPrice() != null && String.valueOf(request.getPrice()).isBlank())
             new IllegalArgumentException("price can't be blank");
-        if ( request.getAuthorEmail() !=null && !Pattern.matches(AppConstants.EMAIL_REGEXPR,request.getAuthorEmail()) )
+        if (request.getAuthorEmail() != null && !Pattern.matches(AppConstants.EMAIL_REGEXPR, request.getAuthorEmail()))
             new IllegalArgumentException("Email must be valid");
     }
 }

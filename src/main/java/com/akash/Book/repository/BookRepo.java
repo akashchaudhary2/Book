@@ -4,8 +4,10 @@ import com.akash.Book.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface BookRepo extends JpaRepository<Book, Long> {
-    Book findByBookId(Long id);
-    void deleteByBookId(Long id);
+    Optional<Book> findById(Long Id);
+    void deleteById(Long Id);
 }

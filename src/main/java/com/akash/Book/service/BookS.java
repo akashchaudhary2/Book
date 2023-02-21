@@ -4,6 +4,7 @@ import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookS {
     void create(Book book);
@@ -12,7 +13,7 @@ public interface BookS {
 
     void update(Book book, PatchBookRequest request);
 
-    Book getBook(Long id);
+    Optional<Book> getBook(Long id);
 
     void delete(Long id);
 

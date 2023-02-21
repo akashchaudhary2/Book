@@ -29,7 +29,7 @@ public class Controller extends BaseExceptionHandler {
     }
 
     @GetMapping("/book/{id}")
-    public Book getBook(@PathVariable("id") String id) {
+    public Optional<Book> getBook(@PathVariable("id") String id) {
         return Optional.ofNullable(id)
                 .map(x -> Long.valueOf(id))
                 .map(bookS::getBook)
@@ -49,7 +49,7 @@ public class Controller extends BaseExceptionHandler {
                 .map(x -> Long.valueOf(id))
                 .map(bookS::getBook)
                 .orElseThrow();
-        bookS.delete(book.getId());
+        bookS.delete(Long.valueOf(id));
     }
 
 

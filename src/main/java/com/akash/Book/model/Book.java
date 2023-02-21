@@ -13,7 +13,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private Long id;
+    private Long Id;
     @Column(length = 35)
     @JsonProperty("author_name")
     @NotBlank(message = "author name can't be blank")
@@ -46,11 +46,11 @@ public class Book {
     }
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getAuthorName() {
