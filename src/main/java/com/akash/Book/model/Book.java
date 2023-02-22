@@ -22,7 +22,6 @@ public class Book {
     @Column(length=30)
     @Pattern(regexp = AppConstants.EMAIL_REGEXPR, message = "Email must be valid")
     @JsonProperty("author_email")
-    @JsonIgnore
     @Email(message = "email must be valid")
     private String authorEmail;
     @NotNull(message = "book tittle  can't be null")
