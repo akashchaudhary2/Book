@@ -6,7 +6,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
@@ -33,54 +39,10 @@ public class Book {
     @Column(length = 35)
     private Double price;
 
-
-    public Book() {
-    }
-
     public Book(String authorName, String authorEmail, String bookTittle, Double price) {
         this.authorName = authorName;
         this.authorEmail = authorEmail;
         this.bookTittle = bookTittle;
-        this.price = price;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        this.Id = id;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getAuthorEmail() {
-        return authorEmail;
-    }
-
-    public void setAuthorEmail(String authorEmail) {
-        this.authorEmail = authorEmail;
-    }
-
-    public String getBookTittle() {
-        return bookTittle;
-    }
-
-    public void setBookTittle(String bookTittle) {
-        this.bookTittle = bookTittle;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
         this.price = price;
     }
 
