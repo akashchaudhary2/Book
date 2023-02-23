@@ -2,7 +2,7 @@ package com.akash.Book;
 
 import com.akash.Book.model.Book;
 import com.akash.Book.repository.BookRepo;
-import com.akash.Book.service.BookS;
+import com.akash.Book.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ class BookApplicationTests {
     @MockBean
     BookRepo bookRepo;
     @Autowired
-    BookS service;
+    BookService service;
 
     @Test
     public void testBooksLowestToHighest() {

@@ -1,7 +1,6 @@
 package com.akash.Book.model;
 
 import com.akash.Book.constants.AppConstants;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -16,9 +15,8 @@ import lombok.Setter;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
-    @Id
+    @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long Id;
     @Column(length = 35)
     @JsonProperty("author_name")
@@ -30,7 +28,7 @@ public class Book {
     @JsonProperty("author_email")
     @Email(message = "email must be valid")
     private String authorEmail;
-    @NotNull(message = "book tittle  can't be null")
+    @NotNull()
     @NotBlank(message = "book tittle  can't be blank")
     @NotEmpty(message = "book tittle can't be empty")
     @Column(length = 35)

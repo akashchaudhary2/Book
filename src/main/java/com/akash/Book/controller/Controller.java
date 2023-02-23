@@ -1,61 +1,62 @@
 package com.akash.Book.controller;
 
-import com.akash.Book.exceptions.BaseExceptionHandler;
 import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
-import com.akash.Book.service.BookS;
+import com.akash.Book.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class Controller extends BaseExceptionHandler {
+public class Controller{
     @Autowired
-    private BookS bookS;
+    private BookService bookService;
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@Valid @RequestBody Book book) {
-        bookS.create(book);
+        bookService.create(book);
     }
 
     @GetMapping("/")
     public List<Book> getBook() {
-        return bookS.getBooks();
+        return bookService.getBooks();
     }
 
     @GetMapping("/book/{id}")
     public Optional<Book> getBook(@PathVariable("id") String id) {
         return Optional.ofNullable(id)
                 .map(x -> Long.valueOf(id))
-                .map(bookS::getBook)
+                .map(bookService::getBook)
                 .orElseThrow();
     }
-    @PatchMapping("/{id}")
+    @PatchMapping("/{Id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") String id,@RequestBody PatchBookRequest request){
-        var user = Optional.ofNullable(id)
-                .map(i->Long.valueOf(i))
-                .map(bookS::getBook)
+    public void update(@PathVariable("Id") String Id,@RequestBody PatchBookRequest request){
+       Optional<Book> book = Optional.ofNullable(Id)
+                .map(i->Long.valueOf(Id))
+                .map(bookService::getBook)
                 .orElseThrow();
+       bookService.update(book.get(),request);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
-        var book = Optional.ofNullable(id)
+        Optional<Book> book = Optional.ofNullable(id)
                 .map(x -> Long.valueOf(id))
-                .map(bookS::getBook)
+                .map(bookService::getBook)
                 .orElseThrow();
-        bookS.delete(Long.valueOf(id));
+        book.map(x->x.getId()).ifPresent(bookService::delete);
     }
 
 
     @GetMapping("/lowest-highest")
     public List<Book> getBooksPriceLowestToHighest() {
-        return bookS.priceLowestToHighest();
+        return bookService.priceLowestToHighest();
     }
 
 
