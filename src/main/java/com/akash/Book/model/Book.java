@@ -3,27 +3,30 @@ package com.akash.Book.model;
 import com.akash.Book.constants.AppConstants;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+
 import jakarta.validation.constraints.*;
-import lombok.Getter;
+import lombok.Data;
+
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import static com.akash.Book.model.Inventory.SEQUENCE_NAME;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @NoArgsConstructor
-@Getter
-@Setter
-@Entity
+@Data
+@Document(collection = "book")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
-    @Column(length = 35)
+    @org.springframework.data.annotation.Transient
+    public static final String SEQUENCE_NAME = "user_sequence";
+    private String bookId;
+
     @JsonProperty("author_name")
     @NotBlank(message = "author name can't be blank")
     @NotEmpty(message = "author name can't be empty")
     private String authorName;
-    @Column(length=30)
+
     @Pattern(regexp = AppConstants.EMAIL_REGEXPR, message = "Email must be valid")
     @JsonProperty("author_email")
     @Email(message = "email must be valid")
@@ -31,10 +34,10 @@ public class Book {
     @NotNull()
     @NotBlank(message = "book tittle  can't be blank")
     @NotEmpty(message = "book tittle can't be empty")
-    @Column(length = 35)
+
     @JsonProperty("book_tittle")
     private String bookTittle;
-    @Column(length = 35)
+
     private Double price;
 
     public Book(String authorName, String authorEmail, String bookTittle, Double price) {
