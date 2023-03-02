@@ -18,7 +18,7 @@ import static com.akash.Book.model.Book.SEQUENCE_NAME;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("book")
+@RequestMapping("books")
 public class BookApplication {
 
     public static void main(String[] args) {
@@ -30,14 +30,14 @@ public class BookApplication {
     @Autowired
     private SequenceGeneratorService generatorService;
 
-    @PostMapping("/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@Valid @RequestBody Book book) {
         book.setBookId(String.valueOf(generatorService.getSequenceNumber(SEQUENCE_NAME)));
         bookService.create(book);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Book> getBook() {
         return bookService.getBooks();
     }
@@ -45,16 +45,14 @@ public class BookApplication {
     @GetMapping("/book/{id}")
     public Optional<Book> getBook(@PathVariable("id") String id) {
         return Optional.ofNullable(id)
-                .map(x -> Long.valueOf(id))
                 .map(bookService::getBook)
                 .orElseThrow();
     }
 
-    @PatchMapping("/{Id}")
+    @PatchMapping("/book/{Id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable("Id") String Id, @RequestBody PatchBookRequest request) {
         Optional<Book> book = Optional.ofNullable(Id)
-                .map(i -> Long.valueOf(Id))
                 .map(bookService::getBook)
                 .orElseThrow();
         bookService.update(book.get(), request);

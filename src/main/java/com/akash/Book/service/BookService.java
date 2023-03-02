@@ -11,11 +11,11 @@ public interface BookService {
 
     List<Book> getBooks();
 
-    Optional<Book> getBook(Long id);
+    Optional<Book> getBook(String id);
 
     void update(Book book, PatchBookRequest request);
 
-    void delete(Long id);
+    void delete(String id);
 
     List<Book> priceLowestToHighest();
 

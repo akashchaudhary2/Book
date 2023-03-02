@@ -1,7 +1,6 @@
 package com.akash.Book.exceptions;
 
 import com.akash.Book.model.ErrorMessage;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

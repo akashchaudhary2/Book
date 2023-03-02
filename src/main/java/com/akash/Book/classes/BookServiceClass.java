@@ -29,7 +29,7 @@ public class BookServiceClass implements BookService {
     }
 
     @Override
-    public Optional<Book> getBook(Long id) {
+    public Optional<Book> getBook(String id) {
         return bookRepo.findById(id);
     }
 
@@ -41,7 +41,7 @@ public class BookServiceClass implements BookService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         bookRepo.deleteById(id);
     }
 
