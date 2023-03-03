@@ -1,17 +1,18 @@
 package com.akash.BookUser.service;
 
-import com.akash.BookUser.model.BookUser;
+import com.akash.BookUser.dto.UserRequest;
+import com.akash.BookUser.model.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface BookUserService {
 
-    BookUser saveUser(BookUser user);
+    UserRequest saveUser(UserRequest request);
 
-    Optional<BookUser> getuser(Long userId);
+    Optional<User> getuser(Long userId);
 
-    List<BookUser> getUsers();
+    List<User> getUsers();
 
     void associateBook(String userId, String bookId);
 

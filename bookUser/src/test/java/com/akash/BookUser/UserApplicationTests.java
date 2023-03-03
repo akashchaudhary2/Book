@@ -1,6 +1,6 @@
 package com.akash.BookUser;
 
-import com.akash.BookUser.model.BookUser;
+import com.akash.BookUser.model.User;
 import com.akash.BookUser.repo.BookUserRepo;
 import com.akash.BookUser.service.BookUserService;
 import org.junit.jupiter.api.Test;
@@ -15,14 +15,14 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 @SpringBootTest
-class BookUserApplicationTests {
+class UserApplicationTests {
 	@Autowired
 	BookUserService service;
 	@MockBean
 	BookUserRepo repo;
 	@Test
 	void getBookOwnedTest() {
-		BookUser user = new BookUser("1","Akash","Chaudhary","1 2 3");
+		User user = new User("1","Akash","Chaudhary","1 2 3");
 		when(repo.findById("1")).thenReturn(Optional.of(user));
 		List list = Arrays.asList("1","2","3");
 		assertEquals(service.getBookOwned("1"),list);

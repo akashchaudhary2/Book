@@ -2,7 +2,8 @@ package com.akash.BookUser;
 
 import com.akash.BookUser.classes.SequenceGeneratorService;
 import com.akash.BookUser.controller.Controller;
-import com.akash.BookUser.model.BookUser;
+import com.akash.BookUser.dto.UserRequest;
+import com.akash.BookUser.model.User;
 import com.akash.BookUser.service.BookUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
-import static com.akash.BookUser.model.BookUser.SEQUENCE_NAME;
 
 @SpringBootApplication
 @RestController
@@ -31,21 +30,21 @@ public class BookUserApplication implements Controller {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @Override
-    public BookUser createUser(@RequestBody BookUser user) {
-        user.setUserId(String.valueOf(generatorService.getSequenceNumber(SEQUENCE_NAME)));
-        return service.saveUser(user);
+    public UserRequest createUser(@RequestBody UserRequest request) {
+        service.saveUser(request);
+        return request;
     }
 
     @GetMapping()
     @Override
-    public List<BookUser> getUsers() {
+    public List<User> getUsers() {
         return service.getUsers();
     }
 
     @GetMapping("/user/{id}")
     @Override
-    public BookUser getUser(@PathVariable("id") String userId) {
-        Optional<Optional<BookUser>> user = Optional.ofNullable(userId)
+    public User getUser(@PathVariable("id") String userId) {
+        Optional<Optional<User>> user = Optional.ofNullable(userId)
                 .map(x -> Long.valueOf(userId))
                 .map(service::getuser);
         return user.get().get();
