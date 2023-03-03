@@ -9,11 +9,17 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.akash</groupId>
-	<artifactId>Book</artifactId>
+	<artifactId>BookStore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Book</name>
+    <packaging>pom</packaging>
+    <name>BookStore</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
+    <modules>
+        <module>book</module>
+		<module>bookUser</module>
+		<module>bookInventory</module>
+	</modules>
+    <properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
