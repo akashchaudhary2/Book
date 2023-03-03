@@ -1,6 +1,7 @@
 package com.akash.Book.classes;
 
 import com.akash.Book.constants.AppConstants;
+import com.akash.Book.dto.BookRequest;
 import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
 import com.akash.Book.repository.BookRepo;
@@ -13,13 +14,24 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.akash.Book.model.Book.SEQUENCE_NAME;
+
 @Service
 public class BookServiceClass implements BookService {
     @Autowired
     private BookRepo bookRepo;
+    @Autowired
+    private SequenceGeneratorService generatorService;
 
     @Override
-    public void create(Book book) {
+    public void create(BookRequest request) {
+        Book book = Book.builder()
+                .bookId(String.valueOf(generatorService.getSequenceNumber(SEQUENCE_NAME)))
+                .bookTittle(request.getBookTittle())
+                .authorName(request.getAuthorName())
+                .authorEmail(request.getAuthorEmail())
+                .price(request.getPrice())
+                .build();
         bookRepo.save(book);
     }
 

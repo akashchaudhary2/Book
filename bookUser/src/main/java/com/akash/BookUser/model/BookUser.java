@@ -1,11 +1,12 @@
 package com.akash.BookUser.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 @Data
 @NoArgsConstructor
@@ -16,8 +17,12 @@ public class BookUser {
     public static final String SEQUENCE_NAME = "user_sequence";
     @Id
     private String userId;
+    @NotBlank(message = "author name can't be blank")
+    @NotEmpty(message = "author name can't be empty")
     @JsonProperty("first_name")
     private String firstName;
+    @NotBlank(message = "author name can't be blank")
+    @NotEmpty(message = "author name can't be empty")
     @JsonProperty("last_name")
     private String lastName;
     @JsonProperty("book_owned")

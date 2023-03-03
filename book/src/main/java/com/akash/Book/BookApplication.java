@@ -1,6 +1,7 @@
 package com.akash.Book;
 
 import com.akash.Book.classes.SequenceGeneratorService;
+import com.akash.Book.dto.BookRequest;
 import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
 import com.akash.Book.service.BookService;
@@ -27,14 +28,11 @@ public class BookApplication {
 
     @Autowired
     private BookService bookService;
-    @Autowired
-    private SequenceGeneratorService generatorService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Valid @RequestBody Book book) {
-        book.setBookId(String.valueOf(generatorService.getSequenceNumber(SEQUENCE_NAME)));
-        bookService.create(book);
+    public void create(@Valid @RequestBody BookRequest request) {
+        bookService.create(request);
     }
 
     @GetMapping
