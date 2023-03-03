@@ -1,6 +1,7 @@
 package com.akash.BookUser.classes;
 
 import com.akash.BookUser.dto.UserRequest;
+import com.akash.BookUser.dto.UserResponse;
 import com.akash.BookUser.model.User;
 import com.akash.BookUser.repo.BookUserRepo;
 import com.akash.BookUser.service.BookUserService;
@@ -38,8 +39,16 @@ public class BookUserServiceClass implements BookUserService {
     }
 
     @Override
-    public List<User> getUsers() {
-        return repo.findAll();
+    public List<UserResponse> getUsers() {
+        List<User> list= repo.findAll();
+        return list.stream().map(this::mapToUserResponse).toList();
+    }
+    private UserResponse mapToUserResponse(User user){
+        return UserResponse.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .bookOwned(user.getBookOwned())
+                .build();
     }
 
     @Override

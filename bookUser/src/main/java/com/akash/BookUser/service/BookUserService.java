@@ -1,6 +1,7 @@
 package com.akash.BookUser.service;
 
 import com.akash.BookUser.dto.UserRequest;
+import com.akash.BookUser.dto.UserResponse;
 import com.akash.BookUser.model.User;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface BookUserService {
 
     Optional<User> getuser(Long userId);
 
-    List<User> getUsers();
+    List<UserResponse> getUsers();
 
     void associateBook(String userId, String bookId);
 

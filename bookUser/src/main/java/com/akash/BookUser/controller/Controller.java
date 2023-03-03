@@ -1,6 +1,7 @@
 package com.akash.BookUser.controller;
 
 import com.akash.BookUser.dto.UserRequest;
+import com.akash.BookUser.dto.UserResponse;
 import com.akash.BookUser.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public interface Controller {
     UserRequest createUser(@RequestBody UserRequest request);
 
     @GetMapping()
-    List<User> getUsers();
+    List<UserResponse> getUsers();
 
     @GetMapping("/user/{id}")
     User getUser(@PathVariable("id") String userId);

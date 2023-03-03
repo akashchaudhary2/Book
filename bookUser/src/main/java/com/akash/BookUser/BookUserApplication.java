@@ -3,6 +3,7 @@ package com.akash.BookUser;
 import com.akash.BookUser.classes.SequenceGeneratorService;
 import com.akash.BookUser.controller.Controller;
 import com.akash.BookUser.dto.UserRequest;
+import com.akash.BookUser.dto.UserResponse;
 import com.akash.BookUser.model.User;
 import com.akash.BookUser.service.BookUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class BookUserApplication implements Controller {
 
     @GetMapping()
     @Override
-    public List<User> getUsers() {
+    public List<UserResponse> getUsers() {
         return service.getUsers();
     }
 
