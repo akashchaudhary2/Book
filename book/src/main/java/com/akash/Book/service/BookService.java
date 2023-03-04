@@ -2,6 +2,7 @@ package com.akash.Book.service;
 
 import com.akash.Book.constants.AppConstants;
 import com.akash.Book.dto.BookRequest;
+import com.akash.Book.dto.BookResponse;
 import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
 import com.akash.Book.interfaces.BookRepo;
@@ -43,19 +44,6 @@ public class BookService implements com.akash.Book.interfaces.BookService {
     public Optional<Book> getBook(String id) {
         return bookRepo.findById(id);
     }
-
-    @Override
-    public void update(Book book, PatchBookRequest request) {
-        validationForPatch(request);
-        updateBook(book, request);
-        bookRepo.save(book);
-    }
-
-    @Override
-    public void delete(String id) {
-        bookRepo.deleteById(id);
-    }
-
     @Override
     public List<Book> priceLowestToHighest() {
         return bookRepo.findAll()
@@ -72,15 +60,15 @@ public class BookService implements com.akash.Book.interfaces.BookService {
                 .collect(Collectors.toList());
     }
 
-    private void updateBook(Book book, PatchBookRequest request) {
-        if (request.getAuthorName() != null)
-            book.setAuthorName(request.getAuthorName());
-        if (request.getAuthorEmail() != null)
-            book.setAuthorName(request.getAuthorName());
-        if (request.getBookTittle() != null)
-            book.setBookTittle(request.getBookTittle());
-        if (request.getPrice() != null)
-            book.setPrice(request.getPrice());
+    private BookResponse bookResponseMapper(Book book) {
+        BookResponse response = BookResponse.builder()
+                .bookId(book.getBookId())
+                .authorName(book.getAuthorName())
+                .bookTittle(book.getBookTittle())
+                .price(book.getPrice())
+                .inventoryId(book.getInventoryId())
+                .build();
+        return response;
     }
 
     private void validationForPatch(PatchBookRequest request) {
@@ -95,4 +83,35 @@ public class BookService implements com.akash.Book.interfaces.BookService {
         if (request.getAuthorEmail() != null && !Pattern.matches(AppConstants.EMAIL_REGEXPR, request.getAuthorEmail()))
             new IllegalArgumentException("Email must be valid");
     }
+    private void updateBook(Book book, PatchBookRequest request) {
+        if (request.getAuthorName() != null)
+            book.setAuthorName(request.getAuthorName());
+        if (request.getAuthorEmail() != null)
+            book.setAuthorName(request.getAuthorName());
+        if (request.getBookTittle() != null)
+            book.setBookTittle(request.getBookTittle());
+        if (request.getPrice() != null)
+            book.setPrice(request.getPrice());
+    }
+    @Override
+    public void update(Book book, PatchBookRequest request) {
+        validationForPatch(request);
+        updateBook(book, request);
+        bookRepo.save(book);
+    }
+
+    @Override
+    public BookResponse BookInventoryMap(String bookId, String inventoryId) {
+        Optional<Book> book1 = bookRepo.findById(bookId);
+        Book book = book1.get();
+        book.setInventoryId(inventoryId);
+        return bookResponseMapper(book);
+    }
+
+
+    @Override
+    public void delete(String id) {
+        bookRepo.deleteById(id);
+    }
+
 }

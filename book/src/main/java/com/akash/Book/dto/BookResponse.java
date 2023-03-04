@@ -8,24 +8,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookRequest {
+public class BookResponse {
+    @JsonProperty("book_id")
+    private String bookId;
     @JsonProperty("author_name")
-    @NotBlank(message = "author name can't be blank")
-    @NotEmpty(message = "author name can't be empty")
     private String authorName;
     @JsonProperty("author_email")
-    @Pattern(regexp = AppConstants.EMAIL_REGEXPR, message = "Email must be valid")
-    @Email(message = "email must be valid")
     private String authorEmail;
     @JsonProperty("book_tittle")
-    @NotNull()
-    @NotBlank(message = "book tittle  can't be blank")
-    @NotEmpty(message = "book tittle can't be empty")
     private String bookTittle;
     @JsonProperty("price")
     private Double price;
+    @JsonProperty("inventory_id")
+    private String inventoryId;
 }
