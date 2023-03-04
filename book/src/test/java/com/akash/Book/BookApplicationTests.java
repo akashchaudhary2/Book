@@ -24,7 +24,7 @@ class BookApplicationTests {
 
     @Test
     public void testBooksLowestToHighest() {
-        List<Book> books = Arrays.asList(new Book("1""akash", "akash@gmail.com", "java basic programing", 50.0,"1"), new Book("1","akash", "akash@gmail.com", "programing in java", 100.0,"2"), new Book("1","napoleon", "napolean@gmail.com", "Think and grow rich", 150.0,"3"));
+        List<Book> books = Arrays.asList(new Book("1","akash", "akash@gmail.com", "java basic programing", 50.0,"1"), new Book("1","akash", "akash@gmail.com", "programing in java", 100.0,"2"), new Book("1","napoleon", "napolean@gmail.com", "Think and grow rich", 150.0,"3"));
         when(bookRepo.findAll()).thenReturn(books);
         assertEquals(service.priceLowestToHighest().get(0), books.get(0));
         assertEquals(service.priceLowestToHighest().get(1), books.get(1));
