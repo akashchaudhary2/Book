@@ -1,4 +1,4 @@
-package com.akash.Book.repository;
+package com.akash.Book.interfaces;
 
 import com.akash.Book.model.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;

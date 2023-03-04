@@ -1,15 +1,16 @@
 package com.akash.BookInventory.service;
 
-import com.akash.BookInventory.model.Inventory;
-import com.akash.BookInventory.enums.Status;
+import com.akash.BookInventory.dto.InventoryRequest;
+import com.akash.BookInventory.dto.InventoryResponse;
+import com.akash.BookInventory.dto.InventoryStockResponse;
 
 import java.util.List;
 
 public interface InventoryService {
 
-    List<Inventory> getAll();
+    List<InventoryResponse> getAll();
 
-    void save(Inventory inventory);
+    InventoryRequest save(InventoryRequest request);
 
-    Status inventoryCheck(String inventoryId);
+    InventoryStockResponse inventoryCheck(String inventoryId);
 }

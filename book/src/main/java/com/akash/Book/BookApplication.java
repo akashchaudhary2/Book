@@ -1,10 +1,10 @@
 package com.akash.Book;
 
-import com.akash.Book.classes.SequenceGeneratorService;
 import com.akash.Book.dto.BookRequest;
+import com.akash.Book.interfaces.Controller;
 import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
-import com.akash.Book.service.BookService;
+import com.akash.Book.interfaces.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static com.akash.Book.model.Book.SEQUENCE_NAME;
-
 @SpringBootApplication
 @RestController
 @RequestMapping("books")
-public class BookApplication {
+public class BookApplication implements Controller {
 
     public static void main(String[] args) {
         SpringApplication.run(BookApplication.class, args);
@@ -31,16 +29,19 @@ public class BookApplication {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public void create(@Valid @RequestBody BookRequest request) {
         bookService.create(request);
     }
 
     @GetMapping
+    @Override
     public List<Book> getBook() {
         return bookService.getBooks();
     }
 
     @GetMapping("/book/{id}")
+    @Override
     public Optional<Book> getBook(@PathVariable("id") String id) {
         return Optional.ofNullable(id)
                 .map(bookService::getBook)
@@ -49,6 +50,7 @@ public class BookApplication {
 
     @PatchMapping("/book/{Id}")
     @ResponseStatus(HttpStatus.OK)
+    @Override
     public void update(@PathVariable("Id") String Id, @RequestBody PatchBookRequest request) {
         Optional<Book> book = Optional.ofNullable(Id)
                 .map(bookService::getBook)
@@ -66,6 +68,7 @@ public class BookApplication {
 
 
     @GetMapping("/lowest-highest")
+    @Override
     public List<Book> getBooksPriceLowestToHighest() {
         return bookService.priceLowestToHighest();
     }

@@ -26,4 +26,5 @@ public class Book {
     private String authorEmail;
     private String bookTittle;
     private Double price;
+    private String inventoryId;
 }
