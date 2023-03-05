@@ -1,4 +1,4 @@
-package com.akash.BookUser.classes;
+package com.akash.BookUser.service;
 
 import com.akash.BookUser.model.DbSequence;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.akash.BookInventory.model;
 
-import com.akash.BookInventory.enums.Status;
+import com.akash.BookInventory.dto.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

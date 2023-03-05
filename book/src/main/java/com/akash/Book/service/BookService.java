@@ -23,16 +23,30 @@ public class BookService implements com.akash.Book.interfaces.BookService {
     @Autowired
     private SequenceGeneratorService generatorService;
 
+    public BookResponse bookResponseMapper(Book book) {
+        BookResponse response = BookResponse.builder()
+                .bookId(book.getBookId())
+                .authorName(book.getAuthorName())
+                .bookTittle(book.getBookTittle())
+                .authorEmail("********")
+                .price(book.getPrice())
+                .inventoryId(book.getInventoryId())
+                .build();
+        return response;
+    }
+
     @Override
-    public void create(BookRequest request) {
+    public BookResponse create(BookRequest request) {
         Book book = Book.builder()
                 .bookId(String.valueOf(generatorService.getSequenceNumber(SEQUENCE_NAME)))
                 .bookTittle(request.getBookTittle())
                 .authorName(request.getAuthorName())
                 .authorEmail(request.getAuthorEmail())
                 .price(request.getPrice())
+                .inventoryId("")
                 .build();
         bookRepo.save(book);
+        return bookResponseMapper(book);
     }
 
     @Override
@@ -41,9 +55,12 @@ public class BookService implements com.akash.Book.interfaces.BookService {
     }
 
     @Override
-    public Optional<Book> getBook(String id) {
-        return bookRepo.findById(id);
+    public Optional<Book> getBook(String bookId) {
+        Optional<Book> book = bookRepo.findById(bookId);
+        return book;
+
     }
+
     @Override
     public List<Book> priceLowestToHighest() {
         return bookRepo.findAll()
@@ -60,17 +77,6 @@ public class BookService implements com.akash.Book.interfaces.BookService {
                 .collect(Collectors.toList());
     }
 
-    private BookResponse bookResponseMapper(Book book) {
-        BookResponse response = BookResponse.builder()
-                .bookId(book.getBookId())
-                .authorName(book.getAuthorName())
-                .bookTittle(book.getBookTittle())
-                .price(book.getPrice())
-                .inventoryId(book.getInventoryId())
-                .build();
-        return response;
-    }
-
     private void validationForPatch(PatchBookRequest request) {
         if (request.getAuthorName() != null && request.getAuthorName().isBlank())
             new IllegalArgumentException("name can't be blank");
@@ -83,6 +89,7 @@ public class BookService implements com.akash.Book.interfaces.BookService {
         if (request.getAuthorEmail() != null && !Pattern.matches(AppConstants.EMAIL_REGEXPR, request.getAuthorEmail()))
             new IllegalArgumentException("Email must be valid");
     }
+
     private void updateBook(Book book, PatchBookRequest request) {
         if (request.getAuthorName() != null)
             book.setAuthorName(request.getAuthorName());
@@ -93,6 +100,7 @@ public class BookService implements com.akash.Book.interfaces.BookService {
         if (request.getPrice() != null)
             book.setPrice(request.getPrice());
     }
+
     @Override
     public void update(Book book, PatchBookRequest request) {
         validationForPatch(request);
@@ -101,11 +109,12 @@ public class BookService implements com.akash.Book.interfaces.BookService {
     }
 
     @Override
-    public BookResponse BookInventoryMap(String bookId, String inventoryId) {
+    public Optional<Book> BookInventoryMap(String bookId, String inventoryId) {
         Optional<Book> book1 = bookRepo.findById(bookId);
-        Book book = book1.get();
-        book.setInventoryId(inventoryId);
-        return bookResponseMapper(book);
+        book1.get().setInventoryId(inventoryId);
+        bookRepo.save(book1.get());
+        return book1;
+
     }
 
 

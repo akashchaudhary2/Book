@@ -1,4 +1,4 @@
-package com.akash.BookUser.service;
+package com.akash.BookUser.interfae;
 
 import com.akash.BookUser.dto.UserRequest;
 import com.akash.BookUser.dto.UserResponse;

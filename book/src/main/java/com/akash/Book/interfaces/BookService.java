@@ -12,23 +12,24 @@ public interface BookService {
     //////////
     //Create//
     ////////
-    void create(BookRequest request);
+    BookResponse create(BookRequest request);
 
 
     ////////
     //Read//
     ///////
     List<Book> getBooks();
+    Optional<Book> getBook(String id);
     List<Book> priceLowestToHighest();
     List<Book> bookWithinPriceRange(int x);
-    Optional<Book> getBook(String id);
+
 
 
     //////////
     //update//
     /////////
     void update(Book book, PatchBookRequest request);
-   BookResponse BookInventoryMap(String bookId, String inventoryId);
+   Optional<Book> BookInventoryMap(String bookId, String inventoryId);
 
     ///////////
     //Delete//

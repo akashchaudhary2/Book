@@ -1,11 +1,9 @@
 package com.akash.BookUser;
-
-import com.akash.BookUser.classes.SequenceGeneratorService;
 import com.akash.BookUser.controller.Controller;
 import com.akash.BookUser.dto.UserRequest;
 import com.akash.BookUser.dto.UserResponse;
 import com.akash.BookUser.model.User;
-import com.akash.BookUser.service.BookUserService;
+import com.akash.BookUser.interfae.BookUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,8 +19,6 @@ import java.util.Optional;
 public class BookUserApplication implements Controller {
     @Autowired
     BookUserService service;
-    @Autowired
-    private SequenceGeneratorService generatorService;
 
     public static void main(String[] args) {
         SpringApplication.run(BookUserApplication.class, args);

@@ -1,6 +1,7 @@
 package com.akash.Book;
 
 import com.akash.Book.dto.BookRequest;
+import com.akash.Book.dto.BookResponse;
 import com.akash.Book.interfaces.Controller;
 import com.akash.Book.model.Book;
 import com.akash.Book.model.PatchBookRequest;
@@ -30,8 +31,8 @@ public class BookApplication implements Controller {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Override
-    public void create(@Valid @RequestBody BookRequest request) {
-        bookService.create(request);
+    public BookResponse create(@Valid @RequestBody BookRequest request) {
+        return bookService.create(request);
     }
 
     @GetMapping
@@ -40,12 +41,18 @@ public class BookApplication implements Controller {
         return bookService.getBooks();
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/book/{bookId}")
     @Override
-    public Optional<Book> getBook(@PathVariable("id") String id) {
-        return Optional.ofNullable(id)
+    public Optional<Book> getBook(@PathVariable("bookId") String bookId) {
+        return Optional.ofNullable(bookId)
                 .map(bookService::getBook)
                 .orElseThrow();
+    }
+
+    @GetMapping("/lowest-highest")
+    @Override
+    public List<Book> getBooksPriceLowestToHighest() {
+        return bookService.priceLowestToHighest();
     }
 
     @PatchMapping("/book/{Id}")
@@ -55,21 +62,24 @@ public class BookApplication implements Controller {
         Optional<Book> book = Optional.ofNullable(Id)
                 .map(bookService::getBook)
                 .orElseThrow();
-        bookService.update(book.get(), request);
+//        bookService.update(book, request);
     }
-
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable("id") String id) {
-//        Optional<Book> book = Optional.ofNullable(id)
-//                .map(bookService::getBook)
-//                .orElseThrow();
-//        book.map(x -> x.getId()).ifPresent(bookService::delete);
-//    }
-
-
-    @GetMapping("/lowest-highest")
+    @PatchMapping("/book/{bookId}/inventory/{inventoryId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @Override
-    public List<Book> getBooksPriceLowestToHighest() {
-        return bookService.priceLowestToHighest();
+    public Optional<Book> inventoryAssociation(@PathVariable("bookId") String bookId, @PathVariable("inventoryId") String inventoryId){
+        return bookService.BookInventoryMap(bookId,inventoryId);
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id) {
+        Optional<Book> book = Optional.ofNullable(id)
+                .map(bookService::getBook)
+                .orElseThrow();
+        if(book.isPresent()){
+            bookService.delete(id);
+        }
+
+    }
+
+
 }

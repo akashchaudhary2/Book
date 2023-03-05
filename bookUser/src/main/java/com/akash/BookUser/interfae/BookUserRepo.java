@@ -1,4 +1,4 @@
-package com.akash.BookUser.repo;
+package com.akash.BookUser.interfae;
 
 import com.akash.BookUser.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;

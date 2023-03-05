@@ -4,7 +4,7 @@ import com.akash.BookInventory.dto.InventoryRequest;
 import com.akash.BookInventory.dto.InventoryResponse;
 import com.akash.BookInventory.dto.InventoryStockResponse;
 import com.akash.BookInventory.model.Inventory;
-import com.akash.BookInventory.enums.Status;
+import com.akash.BookInventory.dto.Status;
 import com.akash.BookInventory.repository.InventoryRepo;
 import com.akash.BookInventory.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;

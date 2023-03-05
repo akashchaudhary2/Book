@@ -1,8 +1,8 @@
 package com.akash.BookUser;
 
 import com.akash.BookUser.model.User;
-import com.akash.BookUser.repo.BookUserRepo;
-import com.akash.BookUser.service.BookUserService;
+import com.akash.BookUser.interfae.BookUserRepo;
+import com.akash.BookUser.interfae.BookUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

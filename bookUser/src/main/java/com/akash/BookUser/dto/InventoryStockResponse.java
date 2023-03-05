@@ -1,5 +1,6 @@
-package com.akash.BookInventory.dto;
+package com.akash.BookUser.dto;
 
+import com.akash.BookUser.dto.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
